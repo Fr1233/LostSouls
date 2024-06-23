@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Souls</title>
+    <link href='https://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet'>
+    <style>
+        
+        body {
+            font-family: 'Cinzel', serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 2000px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            flex-wrap: wrap;
+            margin-left: 0px;
+        }
+        section {
+            background-color: #c4a074;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: calc(50% - 20px);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        th, td {
+            border: 1px solid #8a6d3b;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #8a6d3b;
+            color: white;
+        }
+        input[type="text"], input[type="number"], select {
+            width: calc(100% - 12px);
+            padding: 6px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #8a6d3b;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #6b4e2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section id="personaggio">
+            <h2 style="text-align: center;">Personaggio</h2>
+            <div>
+                <label for="nome-personaggio">Nome del personaggio:</label>
+                <input type="text" id="nome-personaggio" placeholder="Inserisci il nome">
+            </div>
+            <div>
+                <label for="classe-personaggio">Classe del personaggio:</label>
+                <select id="classe-personaggio">
+                    <option value="Evocatore del Velo">Evocatore del Velo</option>
+                    <option value="Cartografo Arcano">Cartografo arcano</option>
+                    <option value=""></option>
+                    <option value=""></option>
+                </select>
+            </div>
+            <div>
+                <label for="segni-particolari">Segni particolari:</label>
+                <input type="text" id="segni-particolari" placeholder="Inserisci segni particolari">
+            </div>
+            <table id="tabella-statistiche">
+                <thead>
+                    <tr>
+                        <th>Statistica</th>
+                        <th>Valore</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Valore</td>
+                        <td>
+                            <button onclick="aumentaStatistica('Valore')">+</button>
+                            <input type="number" id="statistica-valore" value="0" readonly>
+                            <button onclick="diminuisciStatistica('Valore')">-</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sapienza</td>
+                        <td>
+                            <button onclick="aumentaStatistica('Sapienza')">+</button>
+                            <input type="number" id="statistica-sapienza" value="0" readonly>
+                            <button onclick="diminuisciStatistica('Sapienza')">-</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Astuzia</td>
+                        <td>
+                            <button onclick="aumentaStatistica('Astuzia')">+</button>
+                            <input type="number" id="statistica-astuzia" value="0" readonly>
+                            <button onclick="diminuisciStatistica('Astuzia')">-</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fede</td>
+                        <td>
+                            <button onclick="aumentaStatistica('Fede')">+</button>
+                            <input type="number" id="statistica-fede" value="0" readonly>
+                            <button onclick="diminuisciStatistica('Fede')">-</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fato</td>
+                        <td>
+                            <button onclick="aumentaStatistica('Fato')">+</button>
+                            <input type="number" id="statistica-fato" value="0" readonly>
+                            <button onclick="diminuisciStatistica('Fato')">-</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Energia fisica</td>
+                        <td>
+                            <button onclick="aumentaStatistica('Energia fisica')">+</button>
+                            <input type="number" id="statistica-energia-fisica" value="0" readonly>
+                            <button onclick="diminuisciStatistica('Energia fisica')">-</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Energia mentale</td>
+                        <td>
+                            <button onclick="aumentaStatistica('Energia mentale')">+</button>
+                            <input type="number" id="statistica-energia-mentale" value="0" readonly>
+                            <button onclick="diminuisciStatistica('Energia mentale')">-</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="inventario">
+            <h2 style="text-align: center;">Inventario</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome arma</th>
+                        <th>Quantità</th>
+                        <th>Statistica da aumentare</th>
+                        <th>Valore Statistica</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" id="nome-arma-1" placeholder="Inserisci il nome dell'arma"></td>
+                        <td><input type="number" id="quantita-arma-1" value="1" min="1"></td>
+                        <td>
+                            <select id="statistica-arma-1">
+                                <option value="Valore">Valore</option>
+                                <option value="Sapienza">Sapienza</option>
+                                <option value="Astuzia">Astuzia</option>
+                                <option value="Fede">Fede</option>
+                                <option value="Fato">Fato</option>
+                                <option value="Energia fisica">Energia fisica</option>
+                                <option value="Energia mentale">Energia mentale</option>
+                            </select>
+                        </td>
+                        <td><input type="number" id="valore-arma-1" placeholder="Inserisci il valore della statistica"></td>
+                        <td>
+                            <button onclick="aggiungiArma()">Aggiungi arma</button>
+                        </td>
+                    </tr>
+                    <!-- Altri elementi dell'inventario -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <script>
+
+// Funzioni per gestire le statistiche del personaggio
+function aumentaStatistica(statistica) {
+    var inputStatistica = document.getElementById('statistica-' + statistica.toLowerCase().replace(' ', '-'));
+    var valoreAttuale = parseInt(inputStatistica.value);
+    inputStatistica.value = valoreAttuale + 1;
+}
+
+function diminuisciStatistica(statistica) {
+    var inputStatistica = document.getElementById('statistica-' + statistica.toLowerCase().replace(' ', '-'));
+    var valoreAttuale = parseInt(inputStatistica.value);
+    if (valoreAttuale > 0) {
+        inputStatistica.value = valoreAttuale - 1;
+    }
+}
+
+// Funzione per aggiungere un'arma all'inventario
+function aggiungiArma() {
+    var table = document.querySelector('#inventario table tbody');
+    var nomeArmaInput = document.getElementById('nome-arma-1');
+    var quantitaArmaInput = document.getElementById('quantita-arma-1');
+    var statisticaArmaSelect = document.getElementById('statistica-arma-1');
+    var valoreArmaInput = document.getElementById('valore-arma-1');
+
+    // Validazione dell'input (esempio semplice, puoi migliorarlo secondo le tue esigenze)
+    if (nomeArmaInput.value.trim() === '') {
+        alert('Inserisci il nome dell\'arma.');
+        return;
+    }
+    if (parseInt(quantitaArmaInput.value) <= 0) {
+        alert('La quantità dell\'arma deve essere maggiore di zero.');
+        return;
+    }
+    if (parseInt(valoreArmaInput.value) < 0) {
+        alert('Il valore della statistica dell\'arma non può essere negativo.');
+        return;
+    }
+
+    // Creazione della riga della tabella per l'arma
+    var newRow = table.insertRow();
+    newRow.innerHTML = `
+        <td>${nomeArmaInput.value}</td>
+        <td>${quantitaArmaInput.value}</td>
+        <td>${statisticaArmaSelect.value}</td>
+        <td>${valoreArmaInput.value}</td>
+        <td><button onclick="rimuoviArma(this)">Rimuovi</button></td>
+    `;
+
+    // Reset dei campi input dopo l'aggiunta dell'arma
+    nomeArmaInput.value = '';
+    quantitaArmaInput.value = 1;
+    valoreArmaInput.value = '';
+}
+
+// Funzione per rimuovere un'arma dall'inventario
+function rimuoviArma(button) {
+    var row = button.closest('tr');
+    row.parentNode.removeChild(row);
+}
+// Funzione per aggiornare le statistiche del personaggio in base all'arma aggiunta
+function aggiornaStatisticheConArma(statistica, valore) {
+    var inputStatisticaPersonaggio = document.getElementById('statistica-' + statistica.toLowerCase().replace(' ', '-'));
+    var valoreAttuale = parseInt(inputStatisticaPersonaggio.value);
+    inputStatisticaPersonaggio.value = valoreAttuale + parseInt(valore);
+}
+
+// Funzione per aggiungere un'arma all'inventario
+function aggiungiArma() {
+    var table = document.querySelector('#inventario table tbody');
+    var nomeArmaInput = document.getElementById('nome-arma-1');
+    var quantitaArmaInput = document.getElementById('quantita-arma-1');
+    var statisticaArmaSelect = document.getElementById('statistica-arma-1');
+    var valoreArmaInput = document.getElementById('valore-arma-1');
+
+    // Validazione dell'input (esempio semplice, puoi migliorarlo secondo le tue esigenze)
+    if (nomeArmaInput.value.trim() === '') {
+        alert('Inserisci il nome dell\'arma.');
+        return;
+    }
+    if (parseInt(quantitaArmaInput.value) <= 0) {
+        alert('La quantità dell\'arma deve essere maggiore di zero.');
+        return;
+    }
+    if (parseInt(valoreArmaInput.value) < 0) {
+        alert('Il valore della statistica dell\'arma non può essere negativo.');
+        return;
+    }
+
+    // Creazione della riga della tabella per l'arma
+    var newRow = table.insertRow();
+    newRow.innerHTML = `
+        <td>${nomeArmaInput.value}</td>
+        <td>${quantitaArmaInput.value}</td>
+        <td>${statisticaArmaSelect.value}</td>
+        <td>${valoreArmaInput.value}</td>
+        <td><button onclick="rimuoviArma(this)">Rimuovi</button></td>
+    `;
+
+    // Aggiornamento delle statistiche del personaggio
+    aggiornaStatisticheConArma(statisticaArmaSelect.value, valoreArmaInput.value);
+
+    // Reset dei campi input dopo l'aggiunta dell'arma
+    nomeArmaInput.value = '';
+    quantitaArmaInput.value = 1;
+    valoreArmaInput.value = '';
+}
+// Funzione per rimuovere l'impatto delle statistiche dell'arma dal personaggio
+function rimuoviImpattoStatisticaArma(statistica, valore) {
+    var inputStatisticaPersonaggio = document.getElementById('statistica-' + statistica.toLowerCase().replace(' ', '-'));
+    var valoreAttuale = parseInt(inputStatisticaPersonaggio.value);
+    var nuovoValore = valoreAttuale - parseInt(valore);
+    // Assicurati che il valore non scenda sotto zero
+    if (nuovoValore < 0) {
+        nuovoValore = 0;
+    }
+    inputStatisticaPersonaggio.value = nuovoValore;
+}
+
+// Funzione per rimuovere un'arma dall'inventario
+function rimuoviArma(button) {
+    var row = button.closest('tr');
+    var statisticaArmaCell = row.querySelector('td:nth-child(3)').textContent;
+    var valoreArma = parseInt(row.querySelector('td:nth-child(4)').textContent);
+
+    // Chiamata alla funzione per rimuovere l'impatto delle statistiche dell'arma
+    rimuoviImpattoStatisticaArma(statisticaArmaCell, valoreArma);
+
+    // Rimozione della riga dalla tabella dell'inventario
+    row.parentNode.removeChild(row);
+}
+
+    </script>
+    </body>
+    </html>
